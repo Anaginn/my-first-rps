@@ -1,12 +1,11 @@
 from django.shortcuts import render
-
-from django.shortcuts import render
 from django.http import JsonResponse
 from .models import SortedArray
 
 
 def index(request):
-    return render(request, 'massiv/index.html', {})
+    posts = SortedArray.objects.all()
+    return render(request, 'massiv/index.html', {'posts': posts})
 
 
 def sort_array(request):

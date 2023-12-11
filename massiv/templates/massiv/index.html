@@ -3,7 +3,15 @@
         <title>HELP</title>
     </head>
     <body>
-        <p>Hi there!</p>
-        <p>It works!</p>
+       <div>
+            <h1><a href="/">Massiv</a></h1>
+        </div>
+
+       {% for post in posts %}
+            <div>
+                <h1><a href="">{{ post.array_name }}</a></h1>
+                <p>{{ post.sorted_array|linebreaksbr }}</p>
+            </div>
+       {% endfor %}
     </body>
 </html>
