@@ -1,11 +1,11 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from .models import SortedArray
+from django.shortcuts import render, get_object_or_404
 
 
 def index(request):
-    posts = SortedArray.objects.all()
-    return render(request, 'massiv/index.html', {'posts': posts})
+    array = SortedArray.objects.all()
+    return render(request, 'massiv/index.html', {'array': array})
 
 
 def sort_array(request):
@@ -30,3 +30,7 @@ def sort_array(request):
         return JsonResponse({'sorted_array': sorted_array})
 
     return JsonResponse({'error': 'Invalid request'})
+
+def post_detail(request, pk):
+    post = get_object_or_404(SortedArray, pk=pk)
+    return render(request, 'massiv/post_detail.html', {'post': post})

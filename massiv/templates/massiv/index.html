@@ -1,17 +1,27 @@
-<html>
-    <head>
-        <title>HELP</title>
-    </head>
-    <body>
-       <div>
-            <h1><a href="/">Massiv</a></h1>
-        </div>
+{% extends 'massiv/base.html' %}
 
-       {% for post in posts %}
-            <div>
-                <h1><a href="">{{ post.array_name }}</a></h1>
-                <p>{{ post.sorted_array|linebreaksbr }}</p>
+{% block content %}
+    {% for post in array %}
+        <head>
+            <meta charset="utf-8">
+            <style>
+                #text-justify {
+                    background: #d5b9e3;
+                    box-shadow: 0 0 10px #a266c0;
+                    padding: 0px 0px 0px 7px;
+                    width: 1435px;
+                    overflow: auto;
+                    margin-bottom: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <div id="text-justify">
+                <div class="array">
+                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.array_name }}</a></h1>
+                    <p>{{ post.sorted_array|linebreaksbr }}</p>
+                </div>
             </div>
-       {% endfor %}
-    </body>
-</html>
+        </body>
+    {% endfor %}
+{% endblock %}
