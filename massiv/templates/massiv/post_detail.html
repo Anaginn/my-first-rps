@@ -1,0 +1,9 @@
+{% extends 'massiv/base.html' %}
+
+{% block content %}
+    <div class="array">
+        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <h1>{{ post.array_name }}</h1>
+        <p>{{ post.sorted_array|linebreaksbr }}</p>
+    </div>
+{% endblock %}

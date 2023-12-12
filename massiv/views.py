@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from .models import SortedArray
 from django.shortcuts import render, get_object_or_404
-
+from .forms import SortedArrayForm
+from django.shortcuts import redirect
 
 def index(request):
     array = SortedArray.objects.all()
@@ -34,3 +35,27 @@ def sort_array(request):
 def post_detail(request, pk):
     post = get_object_or_404(SortedArray, pk=pk)
     return render(request, 'massiv/post_detail.html', {'post': post})
+
+def post_new(request):
+    if request.method == "POST":
+        form = SortedArrayForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = SortedArrayForm()
+    return render(request, 'massiv/post_edit.html', {'form': form})
+
+def post_edit(request, pk):
+    post = get_object_or_404(SortedArray, pk=pk)
+    if request.method == "POST":
+        form = SortedArrayForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = SortedArrayForm(instance=post)
+    return render(request, 'massiv/post_edit.html', {'form': form})
