@@ -41,6 +41,7 @@ def post_new(request):
         form = SortedArrayForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
@@ -53,7 +54,8 @@ def post_edit(request, pk):
         form = SortedArrayForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+
+
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
