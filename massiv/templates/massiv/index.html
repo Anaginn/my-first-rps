@@ -1,3 +1,16 @@
+<!--<h1>Заголовок</h1> — главный заголовок страницы
+<h2>Подзаголовок</h2> — для заголовков второго уровня
+<h3>Заголовок третьего уровня</h3> … и так далее, вплоть до <h6>
+<p>Параграф</p>
+<em>текст</em> — курсивный шрифт
+<strong>текст</strong> — жирный шрифт
+<br> — переход на следующую строку (внутрь br нельзя ничего поместить, также для него нет закрывающего тега)
+<a href="https://djangogirls.org">link</a> создаёт ссылку
+<ul><li>первый элемент</li><li>второй элемент</li></ul> создаёт список, такой же как этот!
+<div></div> определяет раздел страницы-->
+
+
+
 {% extends 'massiv/base.html' %}
 
 {% block content %}
@@ -20,6 +33,7 @@
                 <div class="array">
                     <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.array_name }}</a></h1>
                     <p>{{ post.sorted_array|linebreaksbr }}</p>
+                    <a href="{% url 'post_new'  %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
                 </div>
             </div>
         </body>

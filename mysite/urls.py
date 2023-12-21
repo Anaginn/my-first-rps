@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('massiv.urls')),
-
+    path('admin/', admin.site.urls), # по любому URL-адресу, начинающемуся с admin/, Django будет находить соответствующее view (представление)
+    path('', include('massiv.urls')), #Django теперь будет перенаправлять все запросы 'http://127.0.0.1:8000/' к massiv.urls
 ]

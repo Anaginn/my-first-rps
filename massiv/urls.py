@@ -17,11 +17,13 @@ post/ значит, что после начала строки URL должен
 
 from django.urls import path
 from . import views
+from . import tests
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/new/', views.post_new, name='post_new'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
-
+    path('sort_array', views.sort_array, name='sort_array'),
+    path('test', tests.test, name='test'),
 ]
