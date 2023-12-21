@@ -31,7 +31,7 @@
         <body>
             <div id="text-justify">
                 <div class="array">
-                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.array_name }}</a></h1>
+                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.array_name }}</a></h1> <!-- ссылка на пост -->
                     <p>{{ post.sorted_array|linebreaksbr }}</p>
                     <a href="{% url 'post_new'  %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
                 </div>

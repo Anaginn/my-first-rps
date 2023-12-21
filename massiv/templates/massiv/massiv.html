@@ -22,8 +22,8 @@
 
     <!-- Форма, если требуется -->
     <form action="." method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+        {% csrf_token %} <!-- защита формы -->
+        {{ form.as_p }} <!-- отображение формы -->
         <button type="submit" name="action" value="save" class="save btn btn-default">Save</button>
     </form>
 </body>

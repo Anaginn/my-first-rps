@@ -11,17 +11,13 @@ import sqlite3
 # Create your tests here.
 
 
-
-
-
-
 def test(request):
     sqlite_connection = sqlite3.connect('db.sqlite3')
     cursor = sqlite_connection.cursor()
     cursor.execute("""DELETE FROM  massiv_sortedarray""")
     sqlite_connection.commit()
     done=True
-    count = 100
+    count = 1
     limit = 100
     doing = 3
     timeWork=""
