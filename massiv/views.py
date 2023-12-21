@@ -21,8 +21,8 @@ def selectionSort(sortArray):
             sortArray[minI], sortArray[i] = sortArray[i], sortArray[minI]
     return sortArray
 
-def index(request): #функция которая принимает в качестве аргумента request (данные которые ввел пользователь)
-    array = SortedArray.objects.all()
+def index(request): #функция которая принимает в качестве аргумента request (всё, что мы получим от пользователя в качестве запроса через Интернет)
+    array = SortedArray.objects.all() #с помощью QuerySet(список объектов заданной модели, который позволяет читать данные из бд) отображаем на странице все масиивы
     return render(request, 'massiv/index.html', {'array': array}) # отображает переменные {'array': array} в шаблоне 'massiv/index.html'
 
 def sort_array(request):
@@ -48,7 +48,7 @@ def sort_array(request):
                 print(feed)
 
             feed.save()
-            complex = {'form': form, 'sorted_array': sorted_array}
+            complex = {'form': form, 'sorted_array': sorted_array, 'array_name': array_name}
 
             return render(request, 'massiv/massiv.html', complex)
 

@@ -1,11 +1,11 @@
-{% load static %}
+{% load static %} <!-- сообщаем нашему шаблону что мы установили CSS, загружаем статические файлы -->
 <html>
     <head>
         <title>RPS</title>
-        <link rel = "stylesheet" href = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel = "stylesheet" href = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href = "https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel = "stylesheet" type = "text/css">
-        <link rel = "stylesheet" href = "{% static 'css/rps.css' %}">
+        <link rel = "stylesheet" href = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <!-- устанавливаем HTML и CSS фреймворк Bootstrap -->
+        <link rel = "stylesheet" href = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> <!-- устанавливаем HTML и CSS фреймворк Bootstrap -->
+        <link href = "https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel = "stylesheet" type = "text/css"> <!-- взяли определенный шрифт для заголовков -->
+        <link rel = "stylesheet" href = "{% static 'css/rps.css' %}"> <!-- сообщаем шаблону где находится CSS файл -->
         <link rel="stylesheet" href="{% static 'ckeditor/ckeditor.css' %}">
         <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
         {{ form.media }}
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-8">
                     {% block content %}
-
+                        <!-- block — тег шаблона, позволяющий вставлять HTML-код этого блока в другие шаблоны, расширяющие base.html -->
                     {% endblock %}
                 </div>
             </div>

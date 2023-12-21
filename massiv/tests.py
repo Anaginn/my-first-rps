@@ -6,6 +6,8 @@ from django.shortcuts import render
 from random import randint
 
 import time
+
+import sqlite3
 # Create your tests here.
 
 
@@ -14,6 +16,10 @@ import time
 
 
 def test(request):
+    sqlite_connection = sqlite3.connect('db.sqlite3')
+    cursor = sqlite_connection.cursor()
+    cursor.execute("""DELETE FROM  massiv_sortedarray""")
+    sqlite_connection.commit()
     done=True
     count = 100
     limit = 100
