@@ -12,10 +12,14 @@ import sqlite3
 
 
 def test(request):
+
     sqlite_connection = sqlite3.connect('db.sqlite3')
     cursor = sqlite_connection.cursor()
-    cursor.execute("""DELETE FROM  massiv_sortedarray""")
+    cursor.execute("delete from massiv_sortedarray")
     sqlite_connection.commit()
+    sqlite_connection.close()
+
+
     done=True
     count = 1
     limit = 100
