@@ -11,15 +11,33 @@ from django.shortcuts import redirect
 
 def selectionSort(sortArray):
     minI = 0
-    for i in range(len(sortArray)):
-        min = sys.maxsize
-        for j in range(i, len(sortArray)):
-            if sortArray[j] < min:
-                min = sortArray[j]
-                minI = j
-        if sortArray[minI] != sortArray[i]:
-            sortArray[minI], sortArray[i] = sortArray[i], sortArray[minI]
-    return sortArray
+    success = True
+    try:
+        for i in range(len(sortArray)):
+            min = sys.maxsize
+            for j in range(i, len(sortArray)):
+                if sortArray[j] < min:
+                    min = sortArray[j]
+                    minI = j
+            if sortArray[minI] != sortArray[i]:
+                sortArray[minI], sortArray[i] = sortArray[i], sortArray[minI]
+    except:
+        success = False
+    complex = (sortArray, success)
+    return complex
+
+def FillDataBase(count, timeWork):
+    maxSize = 10
+    start = time.clock()
+    a = []
+    for i in range(count):
+        size = random.randint(0, maxSize)
+        for j in range(size):
+            a[j] = random.randint(0, maxSize)
+
+    end = time.clock()
+    timeWork = (end - start) / time.process_time()
+    return timeWork
 
 def index(request): #функция которая принимает в качестве аргумента request (всё, что мы получим от пользователя в качестве запроса через Интернет)
     array = SortedArray.objects.all() #с помощью QuerySet(список объектов заданной модели, который позволяет читать данные из бд) отображаем на странице все масиивы
@@ -35,12 +53,15 @@ def sort_array(request):
                 numlist = sorted_array.split()
                 intlist = [int(num) for num in numlist]
                 intlist = selectionSort(intlist)
-                numlist = intlist
-                sorted_array = [str(num) for num in numlist]
-
+                #  numlist = intlist
+                #  sorted_array = [str(num) for num in numlist]
+                list = ''
+                for a in intlist:
+                    list += str(a) + ' '
+                list = list[:-1]
                 feed = SortedArray(
                     array_name=array_name,
-                    sorted_array=' '.join(sorted_array),
+                    sorted_array=list,
                 )
                 # Логика сохранения данных
                 print(array_name)

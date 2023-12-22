@@ -7,13 +7,13 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
+    dependencies = [  #список миграций, которые нужно провести перед этой
     ]
 
-    operations = [
-        migrations.CreateModel(
+    operations = [   #описание все изменений, которые нужно провести в бд
+        migrations.CreateModel( #надо добавить поле CreateModel к модели SortedAray
             name='SortedArray',
-            fields=[
+            fields=[ #с названиеями такими то
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('array_name', models.CharField(max_length=100)),
                 ('sorted_array', models.TextField()),

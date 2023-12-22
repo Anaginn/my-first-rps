@@ -1,15 +1,11 @@
 <!-- massiv.html -->
+{% extends 'massiv/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tests</title>
-</head>
-<body>
-    <div class="page-header">
-        <h1><a href="/">Tests</a></h1>
-    </div>
+
+{% block content %}
+
+    <h1>Tests</h1>
+
 
     <!-- Выводим имя массива -->
     <p>Выполняется тест на {{ count }} массивов </p>
@@ -18,5 +14,7 @@
 
     <p>{{timeWork}}</p>
 
-</body>
-</html>
+    <p>{{pr}}</p>
+
+    <p>{{pri}}</p>
+{% endblock %}
