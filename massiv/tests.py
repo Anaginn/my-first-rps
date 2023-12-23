@@ -58,7 +58,7 @@ def test_download(request): # Функция для кнопки "Тест вы�
 
     try:
         # Perform your operations on the table
-        cursor.execute("SELECT * FROM your_table_name")
+        cursor.execute("SELECT * FROM massiv_sortedarray")
         rows = cursor.fetchall()
         for row in rows:
             print(row)
