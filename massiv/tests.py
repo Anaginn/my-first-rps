@@ -2,13 +2,12 @@
 from massiv.models import SortedArray
 from massiv.views import selectionSort
 from django.shortcuts import render
-from django.shortcuts import redirect
 from random import randint
 import re
 import time
-
 import sqlite3
 # Create your tests here.
+
 
 
 def test(request):    # Функция для кнопки "Тест добавления"
@@ -46,12 +45,13 @@ def test(request):    # Функция для кнопки "Тест добав�
         if (k != 1 + doing):  # Увеличение количества массивов
             count *= 10
     count //= 10
-    complex = {'count': count, 'i': i, 'Success': done, 'timeWork': timeWork}  # Возвращаемые из функции данные
+    complex = {'Success': done, 'timeWork': timeWork}  # Возвращаемые из функции данные
 
     return render(request, 'massiv/test.html', complex)
 
 
 def test_download(request): # Функция для кнопки "Тест выгрузки и сортировки"
+
     pr = ""
     pri = ""
     success = True
