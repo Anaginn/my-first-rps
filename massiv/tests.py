@@ -51,7 +51,7 @@ def test(request):    # Функция для кнопки "Тест добав�
 
 
 def test_download(request): # Функция для кнопки "Тест выгрузки и сортировки"
-
+    worksize = 0
     pr = ""
     pri = ""
     success = True
@@ -83,6 +83,7 @@ def test_download(request): # Функция для кнопки "Тест вы�
         endSize = time.time()  # Время окончания работы функции
         roundsize = 4  # Переменная точности округления результатов
         timeWorkSize = round((endSize - startSize), roundsize)  # Время работы
+        worksize += timeWorkSize
         if (success):  # Выводы
             pr += "\nВыгрузка и сортировка " + str(size) + " массивов выполнены за " + str(
                 round(timeWorkSize, roundsize)) + " с. " + " Среднее время работы с одним массивом: " + str(
@@ -93,7 +94,7 @@ def test_download(request): # Функция для кнопки "Тест вы�
     endFunc = time.time()
     timeAll = round((endFunc - startFunc), roundsize)
 
-    pri += "Время работы всей функции: " + str(timeAll) + " с. "
+    pri += "Время работы всей функции: " + str(worksize) + " с. "
 
     complex = {'pr': pr, 'pri': pri}
     return render(request, 'massiv/test_download.html', complex)
