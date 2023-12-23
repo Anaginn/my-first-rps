@@ -125,7 +125,7 @@ def test_clear(request):        # Функция для кнопки "Тест �
 
 def test_output(request):   # Функция для кнопки "Вывод всей БД"
     array = SortedArray.objects.all()
-    complex = {'array': array, 'timeWork': timeWork}
+    complex = {'array': array}
     return render(request, 'massiv/test_output.html', complex)
 
 def add(sizeFill):
