@@ -26,4 +26,7 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('sort_array', views.sort_array, name='sort_array'),
     path('test', tests.test, name='test'),
+    path('test_clear', tests.test_clear, name='test_clear'),
+    path('test_output', tests.test_output, name='test_output'),
+    path('test_download', tests.test_download, name='test_download'),
 ]

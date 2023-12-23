@@ -1,6 +1,5 @@
 import sys
-import time
-import random
+import re
 from django.http import JsonResponse
 from massiv.models import SortedArray
 from django.shortcuts import render, get_object_or_404
@@ -9,38 +8,26 @@ from django.shortcuts import redirect
 
 
 
-def selectionSort(sortArray):
+def selectionSort(sortArray): # Функция сортировки
     minI = 0
-    success = True
-    try:
-        for i in range(len(sortArray)):
-            min = sys.maxsize
-            for j in range(i, len(sortArray)):
-                if sortArray[j] < min:
-                    min = sortArray[j]
-                    minI = j
-            if sortArray[minI] != sortArray[i]:
-                sortArray[minI], sortArray[i] = sortArray[i], sortArray[minI]
+    success=True
+    try:  # Функция проверки верного отрабатывания функции
+        for i in range(len(sortArray)):  # Цикл по всему массиву
+            min = sys.maxsize    # Инициализация макс числа для сравнений
+            for j in range(i, len(sortArray)): # Цикл по подмассиву
+                if sortArray[j] < min:   # Если элемент меньше минимального
+                    min = sortArray[j]   # Замена минимального элемента
+                    minI = j            # Сохранение индекса минимального элемента
+            if sortArray[minI] != sortArray[i]:     # Проверка, что элемент не стоит на своём месте
+                sortArray[minI], sortArray[i] = sortArray[i], sortArray[minI]   # Перестановка
     except:
-        success = False
-    complex = (sortArray, success)
+        success=False
+    complex = (sortArray,  success) # Возвращение из функции массива и успешности отрабатывания
     return complex
 
-def FillDataBase(count, timeWork):
-    maxSize = 10
-    start = time.clock()
-    a = []
-    for i in range(count):
-        size = random.randint(0, maxSize)
-        for j in range(size):
-            a[j] = random.randint(0, maxSize)
-
-    end = time.clock()
-    timeWork = (end - start) / time.process_time()
-    return timeWork
 
 def index(request): #функция которая принимает в качестве аргумента request (всё, что мы получим от пользователя в качестве запроса через Интернет)
-    array = SortedArray.objects.all() #с помощью QuerySet(список объектов заданной модели, который позволяет читать данные из бд) отображаем на странице все масиивы
+    array = SortedArray.objects.all()[:5] #с помощью QuerySet(список объектов заданной модели, который позволяет читать данные из бд) отображаем на странице все масиивы
     return render(request, 'massiv/index.html', {'array': array}) # отображает переменные {'array': array} в шаблоне 'massiv/index.html'
 
 def sort_array(request):
@@ -48,32 +35,27 @@ def sort_array(request):
         form = SortedArrayForm(request.POST)
         if form.is_valid():
             if 'action' in request.POST:
-                array_name = form.cleaned_data['array_name']
-                sorted_array = form.cleaned_data['sorted_array']
-                numlist = sorted_array.split()
-                intlist = [int(num) for num in numlist]
-                intlist = selectionSort(intlist)
-                #  numlist = intlist
-                #  sorted_array = [str(num) for num in numlist]
-                list = ''
-                for a in intlist:
-                    list += str(a) + ' '
-                list = list[:-1]
-                feed = SortedArray(
+                array_name = form.cleaned_data['array_name']        # Получение названия массива из формы
+                sorted_array = form.cleaned_data['sorted_array']    # Получение массива из формы
+                res = re.findall(r'\d+', sorted_array)              # Перевод строки в числа
+                intlist = list(map(int, res))                       # Перевод в лист
+                arr, success = selectionSort(intlist)               # Сортировка и возвращение результатов
+                listed = ''
+                for a in arr:                                   # Цикл по результату сортировки и перевод в строку для БД
+                    listed += str(a) + ' '
+                listed = listed[:-1]
+                feed = SortedArray(                                 # Данные для сохранения в БД
                     array_name=array_name,
-                    sorted_array=list,
+                    sorted_array=listed,
                 )
-                # Логика сохранения данных
-                print(array_name)
-                print(sorted_array)
-                print(feed)
-
             feed.save()
-            complex = {'form': form, 'sorted_array': sorted_array, 'array_name': array_name}
+            complex = {'form': form, 'sorted_array': listed} # Данные для возвращения из функции
 
             return render(request, 'massiv/massiv.html', complex)
 
+
     return JsonResponse({'error': 'Invalid request'})
+
 
 
 def post_detail(request, pk):

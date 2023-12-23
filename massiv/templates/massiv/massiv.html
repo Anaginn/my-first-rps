@@ -1,32 +1,25 @@
-
-
 <!-- massiv.html -->
+{% extends 'massiv/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sorted Array</title>
-</head>
-<body>
-    <h1>Sorted Array</h1>
+{% block content %}
 
-    <!-- Выводим имя массива -->
-    <p>Array Name: {{ array_name }}</p>
 
-    <!-- Выводим отсортированный массив -->
-    <p>Sorted Array:</p>
-    <ul>
-        {% for num in sorted_array %}
-            <li>{{ num }}</li>
-        {% endfor %}
-    </ul>
 
-    <!-- Форма, если требуется -->
-    <form action="." method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+
+
+    <h1>Сортировка массива</h1>
+    <form method="POST" class="feed-form">{% csrf_token %}
+        <h3>Название массива</h3>
+        <textarea name="{{ form.array_name.name }}" class="ckeditor">{{ form.array_name.value }}</textarea>
+        <h3>Отсортированный массив</h3>
+        <textarea name="{{ form.sorted_array.name }}" class="ckeditor">{{ sorted_array }}</textarea>
         <button type="submit" name="action" value="save" class="save btn btn-default">Save</button>
+
     </form>
-</body>
-</html>
+
+
+
+{% endblock %}
+
+
+
