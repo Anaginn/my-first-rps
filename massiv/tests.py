@@ -124,10 +124,7 @@ def test_clear(request):        # Функция для кнопки "Тест �
 
 
 def test_output(request):   # Функция для кнопки "Вывод всей БД"
-    start = time.time()
     array = SortedArray.objects.all()
-    end = time.time()
-    timeWork = "Время выгрузки базы данных: " + str(1000 * (end - start)) + " мс."
     complex = {'array': array, 'timeWork': timeWork}
     return render(request, 'massiv/test_output.html', complex)
 
