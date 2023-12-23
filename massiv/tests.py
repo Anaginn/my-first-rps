@@ -52,41 +52,16 @@ def test(request):    # Функция для кнопки "Тест добав�
 
 def test_download(request): # Функция для кнопки "Тест выгрузки и сортировки"
 
-    # Connect to the database
-    conn = sqlite3.connect('db.sqlite3')
-    cursor = conn.cursor()
-
-    try:
-        # Perform your operations on the table
-        cursor.execute("SELECT * FROM massiv_sortedarray")
-        rows = cursor.fetchall()
-        for row in rows:
-            print(row)
-    except sqlite3.OperationalError:
-        print("Table does not exist")
-
     pr = ""
     pri = ""
     success = True
     # Функция для кнопки "Тест выгрузки и сортировки"
     startFunc = time.time()  # Начало отсчёта
     sqlite_connection = sqlite3.connect('db.sqlite3')  # Подключение к БД
-    cursor = sqlite_connection.cursor()
-    conn = sqlite3.connect('db.sqlite3')
-    sqlite_select_query = conn.cursor()
-    try:
-        # Perform your operations on the table
-        sqlite_select_query.execute("SELECT * FROM massiv_sortedarray")
-        rows = cursor.fetchall()
-        for row in rows:
-            print(row)
-    except sqlite3.OperationalError:
-        print("Table does not exist")
-
-    sqlite_select_query = """SELECT * from massiv_sortedarray"""
-    cursor.execute(sqlite_select_query)
+    sqlite_select_query = sqlite_connection.cursor()
+    sqlite_select_query.execute("SELECT * FROM massiv_sortedarray")
     size = 100
-    sizeDB = len(cursor.fetchall())
+    sizeDB = len(sqlite_select_query.fetchall())
     if sizeDB < ((size) * (1 + 10 + 100)):
         add(((size) * (1 + 10 + 100)) - sizeDB)
     for k in range(0, 3):  # Цикл по количеству тестов
@@ -95,8 +70,8 @@ def test_download(request): # Функция для кнопки "Тест вы�
         print("StartRand is " + str(startRand))
         #  records = cursor.fetchall()[startRand:startRand+size]
         req = "SELECT * FROM massiv_sortedarray LIMIT " + str(size) + " OFFSET " + str(startRand)
-        records = cursor.execute(req)
-        records = cursor.fetchall()
+        records = sqlite_select_query.execute(req)
+        records = sqlite_select_query.fetchall()
         print("Len records is " + str(len(records)))
         for i in range(0, 1):  # Цикл по количеству массивов
             for j in range(0, len(records)):
@@ -106,7 +81,7 @@ def test_download(request): # Функция для кнопки "Тест вы�
                 arr, success = selectionSort(numlist)  # Сортировка
 
         endSize = time.time()  # Время окончания работы функции
-        roundsize = 3  # Переменная точности округления результатов
+        roundsize = 4  # Переменная точности округления результатов
         timeWorkSize = round((endSize - startSize), roundsize)  # Время работы
         if (success):  # Выводы
             pr += "\nВыгрузка и сортировка " + str(size) + " массивов выполнены за " + str(
