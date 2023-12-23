@@ -27,7 +27,7 @@ def selectionSort(sortArray): # Функция сортировки
 
 
 def index(request): #функция которая принимает в качестве аргумента request (всё, что мы получим от пользователя в качестве запроса через Интернет)
-    array = SortedArray.objects.all()[:5] #с помощью QuerySet(список объектов заданной модели, который позволяет читать данные из бд) отображаем на странице все масиивы
+    array = SortedArray.objects.all()[:100] #с помощью QuerySet(список объектов заданной модели, который позволяет читать данные из бд) отображаем на странице все масиивы
     return render(request, 'massiv/index.html', {'array': array}) # отображает переменные {'array': array} в шаблоне 'massiv/index.html'
 
 def sort_array(request):
