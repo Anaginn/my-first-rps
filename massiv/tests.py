@@ -53,7 +53,7 @@ def test(request):    # Функция для кнопки "Тест добав�
 def test_download(request): # Функция для кнопки "Тест выгрузки и сортировки"
 
     # Connect to the database
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
 
     try:
