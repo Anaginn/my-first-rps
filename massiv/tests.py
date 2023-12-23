@@ -52,6 +52,19 @@ def test(request):    # Функция для кнопки "Тест добав�
 
 def test_download(request): # Функция для кнопки "Тест выгрузки и сортировки"
 
+    # Connect to the database
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    try:
+        # Perform your operations on the table
+        cursor.execute("SELECT * FROM your_table_name")
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.OperationalError:
+        print("Table does not exist")
+
     pr = ""
     pri = ""
     success = True
