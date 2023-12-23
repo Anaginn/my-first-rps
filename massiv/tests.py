@@ -72,11 +72,21 @@ def test_download(request): # Функция для кнопки "Тест вы�
     startFunc = time.time()  # Начало отсчёта
     sqlite_connection = sqlite3.connect('db.sqlite3')  # Подключение к БД
     cursor = sqlite_connection.cursor()
+    conn = sqlite3.connect('db.sqlite3')
+    sqlite_select_query = conn.cursor()
+    try:
+        # Perform your operations on the table
+        sqlite_select_query.execute("SELECT * FROM massiv_sortedarray")
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.OperationalError:
+        print("Table does not exist")
+
     sqlite_select_query = """SELECT * from massiv_sortedarray"""
     cursor.execute(sqlite_select_query)
     size = 100
     sizeDB = len(cursor.fetchall())
-    print("SizeDB is " + str(sizeDB))
     if sizeDB < ((size) * (1 + 10 + 100)):
         add(((size) * (1 + 10 + 100)) - sizeDB)
     for k in range(0, 3):  # Цикл по количеству тестов
