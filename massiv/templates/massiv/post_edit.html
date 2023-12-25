@@ -7,7 +7,6 @@
         <textarea name="{{ form.array_name.name }}" class="ckeditor">{{ form.array_name.value }}</textarea>
         <h3>Неотсортированный массив</h3>
         <textarea name="{{ form.sorted_array.name }}" class="ckeditor">{{ form.sorted_array.value }}</textarea>
-        <!-- <button type="submit" name="action" value="save" class="save btn btn-default">Save</button> -->
-        <input type="submit" name="action" value="sort" class="top-menu" formaction="{% url 'sort_array' %}">
+        <input type="submit" name="action" value="sort" class="top-menu" formaction="{% url 'selection_sort' %}">
     </form>
 {% endblock %}

@@ -1,6 +1,5 @@
-
 from massiv.models import SortedArray
-from massiv.views import selectionSort
+from massiv.sorting import sort_array
 from django.shortcuts import render
 from random import randint
 import re
@@ -16,18 +15,18 @@ def test(request):    # Функция для кнопки "Тест добав�
     # cursor.execute("""DELETE FROM  massiv_sortedarray""")
     #  sqlite_connection.commit()
     done = True
-    count = 100
-    limit = 100
-    doing = 3
+    array_count = 100
+    limit_size = 100
+    test_count = 3
     timeWork = ""
-    for k in range(1, 1 + doing):  # Цикл по количеству отрабатываний теста(3)
+    for k in range(1, 1 + test_count):  # Цикл по количеству отрабатываний теста(3)
         start = time.time()  # Начало отсчёта времени работы
-        for i in range(1, count + 1):  # Цикл по количеству массивов
-            size = randint(2, limit)  # Вычисление размера массива
+        for i in range(1, array_count + 1):  # Цикл по количеству массивов
+            size = randint(2, limit_size)  # Вычисление размера массива
             list = ''
             for j in range(0, size):  # Цикл по одному массиву
                 # feel.sorted_array.append(randint(0,limit))
-                list += str(randint(0, limit)) + ' '  # Добавление к массиву элементов
+                list += str(randint(0, limit_size)) + ' '  # Добавление к массиву элементов
             list = list[:-1]
             #  sorted_array=list
             feel = SortedArray(  # Сохранение кортежа
@@ -38,13 +37,13 @@ def test(request):    # Функция для кнопки "Тест добав�
                 done = False
         end = time.time()  # Фиксация окончания работы функции
         if (done == True):  # Выводы
-            timeWork += "Массив на " + str(count) + " символов выполнен успешно. Время работы : " + str(
+            timeWork += "Массив на " + str(array_count) + " символов выполнен успешно. Время работы : " + str(
                 round((end - start), 2)) + " с.   "
         else:
-            timeWork += "Массив на " + str(count) + " символов выполнен неуспешно."
-        if (k != 1 + doing):  # Увеличение количества массивов
-            count *= 10
-    count //= 10
+            timeWork += "Массив на " + str(array_count) + " символов выполнен неуспешно."
+        if (k != 1 + test_count):  # Увеличение количества массивов
+            array_count *= 10
+    array_count //= 10
     complex = {'Success': done, 'timeWork': timeWork}  # Возвращаемые из функции данные
 
     return render(request, 'massiv/test.html', complex)
@@ -78,7 +77,7 @@ def test_download(request): # Функция для кнопки "Тест вы�
                 sortArray = records[j][2]  # Получение массива
                 res = re.findall(r'\d+', sortArray)  # Перевод строки в числа
                 numlist = list(map(int, res))
-                arr, success = selectionSort(numlist)  # Сортировка
+                arr, success = sort_array(numlist)  # Сортировка
 
         endSize = time.time()  # Время окончания работы функции
         roundsize = 4  # Переменная точности округления результатов
@@ -127,14 +126,14 @@ def test_output(request):   # Функция для кнопки "Вывод в�
     return render(request, 'massiv/test_output.html', {'array': array})
 
 def add(sizeFill):
-    limit = 100
-    count=sizeFill
-    for i in range(1, count + 1):  # Цикл по количеству массивов
-        size = randint(2, limit)  # Вычисление размера массива
+    limit_size = 100
+    array_count = sizeFill
+    for i in range(1, array_count + 1):  # Цикл по количеству массивов
+        size = randint(2, limit_size)  # Вычисление размера массива
         list = ''
         for j in range(0, size):  # Цикл по одному массиву
             # feel.sorted_array.append(randint(0,limit))
-            list += str(randint(0, limit)) + ' '  # Добавление к массиву элементов
+            list += str(randint(0, limit_size)) + ' '  # Добавление к массиву элементов
         list = list[:-1]
         #  sorted_array=list
         feel = SortedArray(  # Сохранение кортежа
@@ -143,4 +142,4 @@ def add(sizeFill):
         )
         if (feel.save() == False):  # Проверка ошибки сохранения
             done = False
-        count *= 10
+        array_count *= 10
